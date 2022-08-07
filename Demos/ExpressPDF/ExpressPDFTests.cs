@@ -116,7 +116,7 @@ namespace Demos.ExpressPDF
             //Open existing PDF
             var document = op.OpenPDF(@"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\sample.pdf");
             //Get multiple PDF files based by splitting with filesize
-            var splittedDocuments = op.SplitPDFByFileSize(document, @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF", 1024 * 4);
+            var splittedDocuments = op.SplitPDFByFileSize(document, @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF", 1024 * 2);
             //Save each of them
             foreach (var doc in splittedDocuments)
             {
