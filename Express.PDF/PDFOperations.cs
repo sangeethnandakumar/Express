@@ -4,6 +4,7 @@ using Express.PDF.PDFObjects;
 using Humanizer;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -414,6 +415,63 @@ namespace Express.PDF
             };
             newDocument.Save(newPdf.Stream);
             return newPdf;
+        }
+
+        /// <summary>
+        /// Function to Lock a PDF Document
+        /// </summary>
+        /// <param name="sourceLocation"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool LockPDF(string sourceLocation, string destLocation, string password)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            try
+            {
+                PdfDocument document = PdfReader.Open(sourceLocation);
+                PdfSecuritySettings securitySettings = document.SecuritySettings;
+                securitySettings.UserPassword = password;
+                securitySettings.OwnerPassword = password;
+                securitySettings.PermitAccessibilityExtractContent = false;
+                securitySettings.PermitAnnotations = false;
+                securitySettings.PermitAssembleDocument = false;
+                securitySettings.PermitExtractContent = false;
+                securitySettings.PermitFormsFill = true;
+                securitySettings.PermitFullQualityPrint = false;
+                securitySettings.PermitModifyDocument = true;
+                securitySettings.PermitPrint = false;
+                document.Save(destLocation);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Function to Unlock a PDF Document
+        /// </summary>
+        /// <param name="sourceLocation"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool UnlockPDF(string sourceLocation, string destLocation, string password)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            PdfDocument document;
+            try
+            {
+                document = PdfReader.Open(sourceLocation, password);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            PdfDocumentSecurityLevel level = document.SecuritySettings.DocumentSecurityLevel;
+            document.Save(destLocation);
+            return true;
         }
         #endregion PRIVATE FUNCTIONS
     }

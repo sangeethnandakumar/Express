@@ -123,5 +123,33 @@ namespace Demos.ExpressPDF
                 op.SavePDF(doc, $@"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\chunk-{Guid.NewGuid()}.pdf");
             }
         }
+
+        public static void LockPDF()
+        {
+            //Insance
+            IPDFOperations op = new PDFOperations();
+
+            //Target source and destination files
+            var source = @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\sample.pdf";
+            var dest = @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\sample-protected.pdf";
+            //Define a password
+            string PASSWORD = "admin@123";
+            //Lock PDF
+            op.LockPDF(source, dest, PASSWORD);
+        }
+
+        public static void UnlockPDF()
+        {
+            //Insance
+            IPDFOperations op = new PDFOperations();
+
+            //Target source and destination files
+            var source = @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\sample-protected.pdf";
+            var dest = @"D:\ExpressProject\Express\Demos\bin\Debug\net6.0\ExpressPDF\sample-unlocked.pdf";
+            //Define a password
+            string PASSWORD = "admin@123";
+            //Lock PDF
+            op.UnlockPDF(source, dest, PASSWORD);
+        }
     }
 }

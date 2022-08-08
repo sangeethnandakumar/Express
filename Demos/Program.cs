@@ -11,7 +11,11 @@ namespace Demos
             //ExpressPDFTests.MergePDFPages();
             //ExpressPDFTests.RemovePDFPages();
             //ExpressPDFTests.MergePDFFiles();
-            ExpressPDFTests.SplitPDFByFileSize();
+            //ExpressPDFTests.SplitPDFByFileSize();
+            //ExpressPDFTests.LockPDF();
+            ExpressPDFTests.UnlockPDF();
+
+            Console.ReadLine();
         }
     }
 }

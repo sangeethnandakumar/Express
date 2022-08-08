@@ -18,6 +18,8 @@ namespace Express.PDF
 
         //Advanced Features
         public List<PDFFile> SplitPDFByFileSize(PDFFile pdfFile, string outputLoc, long limit);
+        bool LockPDF(string sourceLocation, string destLocation, string password);
+        bool UnlockPDF(string sourceLocation, string destLocation, string password);
 
         //Aproximate Discovery features
         List<PDFWord> DiscoverAllWords(PDFFile pdfFile, int pageNumber);
